@@ -1,0 +1,33 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-radius: 50px 0;
+    box-shadow: 3px 3px 10px gray;
+    margin: 20px;
+}
+/* .card:hover {
+   
+  } */
+.image{
+   width: 200px;
+   height: 200px; 
+}
+.cardText{
+    display: flex;
+    flex-direction: column;
+}
+.name{
+    margin: 10px;
+    
+}
+.text{
+    margin: 10px;
+    
+}
+.link{
+    text-decoration: none;
+    color: black;
+}

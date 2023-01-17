@@ -1,0 +1,43 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+}
+.displayBox{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 20px 0;
+}
+.filters{
+    display: flex;
+}
+/* .dogcontainer{
+    position: fixed;
+    left: 400px;
+    top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: blue;
+}
+.selectors{
+    position: fixed;
+    left: 0;
+    top: 100px;
+    height: 100%;
+    width: 400px;
+    background-color: red   ;
+}
+.displayBox{
+    position: relative;
+    flex-direction: column;
+    left: 400px;
+    bottom: 0;
+    display: flex;
+    background-color: rgb(208, 255, 0);
+}
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100px;
+
+} */

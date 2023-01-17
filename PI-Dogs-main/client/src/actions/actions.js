@@ -2,22 +2,38 @@ import axios from "axios";
 
 export const GET_DOGS = "GET_DOGS";
 export const FILTER_ORIGIN = "FILTER_ORIGIN";
+export const FILTER_TEMPERAMENT = "FILTER_TEMPERAMENT";
 export const ORDER_BY_NAME =  "ORDER_BY_NAME";
+export const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT"
 export const GET_BY_NAME = "GET_BY_NAME";
+export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
+export const GET_BY_ID = "GET_BY_ID";
+export const SET_ERROR = "SET_ERROR";
+export const SET_NEW_ID = "SET_NEW_ID";
+
 
 export function getDogs (){
     return async function (dispatch) {
-        var allDogs = await axios.get("http://localhost:3001/dogs",{});
+        try{
+            var allDogs = await axios.get("http://localhost:3001/dogs",{});
         dispatch(
             {
                 type: GET_DOGS,
                 payload: allDogs.data
             }
         )
+        }catch(error){
+            dispatch(
+            {
+                type: SET_ERROR,
+                payload: error
+            }
+        )
+        }
     }
 };
 
-export function getCharacterByName(name){
+export function getDogsByName(name){
     return async function(dispatch){
       try{
         var dog= await axios.get(`http://localhost:3001/dogs?name=${name}`);
@@ -28,8 +44,70 @@ export function getCharacterByName(name){
             }
         )
       }catch(error){
-        console.log(error)
-      }
+        console.log(error.response)
+        dispatch(
+        {
+            type: SET_ERROR,
+            payload: error.response
+        }
+        )
+    }
+    }
+}
+
+export function getDogsById(id){
+    return async function(dispatch){
+        try{
+            const dog= await axios.get(`http://localhost:3001/dogs/${id}`);
+            dispatch({
+                type: GET_BY_ID,
+                payload: dog.data[0]
+        })
+        }catch(error){
+            dispatch(
+            {
+                type: SET_ERROR,
+                payload: error
+            }
+            )
+        }
+    }
+}
+
+export function getTemperaments (){
+    return async function (dispatch){
+        try{
+            var temps= await axios.get("http://localhost:3001/temperaments")
+        return dispatch({
+            type: GET_TEMPERAMENTS,
+            payload: temps.data
+        })
+        }catch(error){
+            dispatch(
+            {
+                type: SET_ERROR,
+                payload: error
+            }
+            )
+        }
+    }
+};
+
+export function postDog(newDog){
+    return async function (dispatch){
+        try{
+            const req=await axios.post("http://localhost:3001/dogs",newDog);
+            // console.log(req.data)
+            console.log(req.data)
+            
+        }catch(error){
+            dispatch(
+            {
+                type: SET_ERROR,
+                payload: error
+            }
+            )
+        }
     }
 }
 
@@ -48,3 +126,19 @@ export function orderByName(option){
     }
 
 }
+
+export function filterByTemperament(option){
+    return{
+        type: FILTER_TEMPERAMENT,
+        payload: option
+    }
+}
+
+export function orderByWeight(option){
+    return{
+        type: ORDER_BY_WEIGHT,
+        payload:option
+    }
+}
+
+

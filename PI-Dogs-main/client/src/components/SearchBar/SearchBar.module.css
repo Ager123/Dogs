@@ -1,0 +1,49 @@
+.container{
+    padding: 20px;
+}
+.title{
+    font-size: 40px;
+    color: #994b14;
+}
+.submitButton{
+    text-decoration: none;
+    color: #f1e0d6;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #c3916e;
+    background-color: #c3916e;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 1px;
+    margin: 0 10px;
+}
+.submitButton:hover {
+    cursor: pointer !important;
+    background-color: #b36833;
+}
+.clearButton{
+    text-decoration: none;
+    color: #536b7d;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #536b7d;
+    background-color: #c2e1ef;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 1px;
+    margin: 0 10px;
+}
+.clearButton:hover {
+    cursor: pointer !important;
+    background-color: #99b9d9;;
+}
+.searchInput{
+    width: 250px;
+    padding: 13px;
+    border-radius: 10px;
+}
+.searchSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

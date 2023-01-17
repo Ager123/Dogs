@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+    background-color: #000000ad;
+    padding: 20px 0;
+}
+.link01{
+    text-decoration: none;
+    color: #c4926f;
+    font-size: 25px;
+    font-weight: bold;
+}
+.link01:hover {
+    cursor: pointer !important;
+    color: #b36833;
+
+  }
