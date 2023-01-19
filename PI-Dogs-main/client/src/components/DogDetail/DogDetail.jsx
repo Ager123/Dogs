@@ -3,49 +3,50 @@ import { Link, useParams } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux"
 import { useEffect } from "react";
 import { getDogsById } from "../../actions/actions";
+import NavBar from "../Navbar/Navbar"
+import style from "./DogDetail.module.css"
 
 export default function DogDetail (){
     const {id} = useParams()
     const dispatch = useDispatch()
     const [detail,setDetail]=useState({});
-    const serverError=useSelector(state=>state.error);
-    console.log(serverError.message)
 
     useEffect(() => {
         dispatch(getDogsById(id))
-        // eslint-disable-next-line
     }, []);
     
     const dog=useSelector(state=>state.detailedDog)
 
     useEffect(()=>{
-        // eslint-disable-next-line
        if(dog.id==id) setDetail(dog)
-       // eslint-disable-next-line
     },[dog]);
-    // console.log(detail)
 
     if(!detail.temperament&&detail.temperaments){
         const temperaments2=detail.temperaments.map(obj=>obj.name);
         const tempstring=temperaments2.toString()
         detail.temperament=tempstring
     }
-
     return(
-        <>
-        {// eslint-disable-next-line
-        (dog.id==id) ? 
-        <div>
-            <Link to="/home"><button>Back to Home</button></Link>
-            <h2>Breed details id={id}</h2>
-            <img src={detail.image} alt={detail.name} width="50%" height="50%"/>
-            <h2>{detail.name}</h2>
-            <h4>Temperaments: {detail.temperament}</h4>
-            <h4>Height: {detail.height} cm</h4>
-            <h4>Weight: {detail.weight} kg</h4>
-            {detail.lifespan && <h4>Life Span: {detail.lifespan}</h4>}
-        </div> :
-        <h3>Loading...</h3>}
-        </>
+        <div className={style.container}>
+            <section className={style.topSection}>
+                <NavBar />
+                <Link to="/home" ><button className={style.button}>BACK TO HOME</button></Link>
+            </section>
+        {
+        (parseInt(dog.id)===parseInt(id)) ? 
+        <div className={style.details}>
+            <h1 className={style.title}>{detail.name}</h1>
+            <section className={style.imageAndText}>
+                <img src={detail.image} alt={detail.name} className={style.image}/>
+                <section className={style.textData}>
+                    <p className={style.parrafo}><b>Temperaments: </b>{detail.temperament}</p>
+                    <p className={style.parrafo}><b>Height: </b>{detail.height} cm</p>
+                    <p className={style.parrafo}><b>Weight: </b>{detail.weight} kg</p>
+                    {detail.lifespan && <p className={style.parrafo}><b>Life Span: </b>{detail.lifespan}</p>}
+                </section>
+            </section>
+        </div> : (dog==="NotFound")? <h3>There's no dog with the specified ID</h3>:
+            <h3>Loading...</h3>}
+        </div>
     )
 }

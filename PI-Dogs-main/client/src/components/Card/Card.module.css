@@ -8,12 +8,14 @@
     box-shadow: 3px 3px 10px gray;
     margin: 20px;
 }
-/* .card:hover {
-   
-  } */
+.card:hover {
+    background-color: #c59370;
+    cursor: pointer !important;
+  }
 .image{
    width: 200px;
    height: 200px; 
+   border-radius: 40px 0;
 }
 .cardText{
     display: flex;

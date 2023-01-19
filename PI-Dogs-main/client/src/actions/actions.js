@@ -9,28 +9,46 @@ export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const GET_BY_ID = "GET_BY_ID";
 export const SET_ERROR = "SET_ERROR";
-export const SET_NEW_ID = "SET_NEW_ID";
-
 
 export function getDogs (){
-    return async function (dispatch) {
-        try{
-            var allDogs = await axios.get("http://localhost:3001/dogs",{});
-        dispatch(
-            {
-                type: GET_DOGS,
-                payload: allDogs.data
-            }
-        )
-        }catch(error){
+    // return async function (dispatch) {
+    //     try{
+    //         var allDogs = await axios.get("http://localhost:3001/dogs",{});
+    //     dispatch(
+    //         {
+    //             type: GET_DOGS,
+    //             payload: allDogs.data
+    //         }
+    //     )
+    //     }catch(error){
+    //         console.log(error.response.data)
+    //         dispatch(
+    //         {
+    //             type: SET_ERROR,
+    //             payload: error
+    //         }
+    //     )
+    //     }
+    // }
+    return function(dispatch){
+        return axios.get("http://localhost:3001/dogs")
+        .then(({data})=>{
             dispatch(
-            {
-                type: SET_ERROR,
-                payload: error
-            }
-        )
-        }
-    }
+              {
+                 type: GET_DOGS,
+                 payload: data
+              }
+            )
+        })
+        .catch((error)=>{
+        console.log(error.response)
+        dispatch(
+                    {
+                        type: SET_ERROR,
+                        payload: error.response
+                    })
+    })
+}
 };
 
 export function getDogsByName(name){
@@ -44,11 +62,11 @@ export function getDogsByName(name){
             }
         )
       }catch(error){
-        console.log(error.response)
+        console.log(error.response.data)
         dispatch(
         {
             type: SET_ERROR,
-            payload: error.response
+            payload: error.response.data
         }
         )
     }
@@ -64,6 +82,7 @@ export function getDogsById(id){
                 payload: dog.data[0]
         })
         }catch(error){
+            console.log(error.response.data)
             dispatch(
             {
                 type: SET_ERROR,
@@ -83,6 +102,7 @@ export function getTemperaments (){
             payload: temps.data
         })
         }catch(error){
+            console.log(error.response.data)
             dispatch(
             {
                 type: SET_ERROR,
@@ -101,6 +121,7 @@ export function postDog(newDog){
             console.log(req.data)
             
         }catch(error){
+            console.log(error.response.data)
             dispatch(
             {
                 type: SET_ERROR,

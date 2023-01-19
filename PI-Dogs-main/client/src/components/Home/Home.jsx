@@ -18,16 +18,20 @@ export default function Home (){
     const dispatch=useDispatch();
     const allDogs=useSelector((state=>state.dogs));
     const temperaments=useSelector(state=>state.temperaments)
-    // const errors=useSelector(state=>state.error)
-    // console.log (allDogs)
-    if(!allDogs.length) dispatch(getDogs())
-    // useEffect(()=>dispatch(getDogs()),[dispatch]);
-    useEffect(()=>dispatch(getTemperaments()),[dispatch]);
+    const errors=useSelector(state=>state.error)
+    
+    useEffect(()=>{
+                   if(!allDogs.length){
+                            dispatch(getDogs())
+                        }
+    },[]);
+    useEffect(()=>{
+                dispatch(getTemperaments())
+    },[]);
 
     const [currentPage, setCurrentPage]=useState(1);
-    // eslint-disable-next-line
-    const [dogsXPage , setDogsXPage]=useState(8);
-    // eslint-disable-next-line
+    // const [dogsXPage , setDogsXPage]=useState(8);
+    const dogsXPage=8;
     const [order, setOrder]=useState("");
 
     const lastDogIndex=currentPage*dogsXPage;
@@ -35,11 +39,6 @@ export default function Home (){
     const currentDogs=allDogs.slice(firstDogIndex,lastDogIndex);
 
     const paginado = (pNumber) => setCurrentPage(pNumber);
-    
-    // const pesos=allDogs.map(dog=>dog.height)
-    // console.log (pesos)
-
-    // console.log(allDogs[0])
 
     function clicHandler(){
         dispatch(getDogs())
@@ -67,28 +66,32 @@ export default function Home (){
         setCurrentPage(1);
         setOrder(e.target.value)
     }
-
-    return(
-                
+    console.log(errors)
+    return(        
         <div className={style.container}>
+           
             <Navbar className={style.Navbar}/>
             <SearchBar clicHandler={clicHandler} /> 
-            
+
             <div className={style.displayBox}>
                 <section className={style.filters}>
-                <Selectors 
-                handleSortByName={handleSortByName} 
-                handleWeightOrder={handleWeightOrder} 
-                handleTempFilter={handleTempFilter}
-                handleFilterOrigin={handleFilterOrigin}
-                temperaments={temperaments} />
+                    <Selectors 
+                    handleSortByName={handleSortByName} 
+                    handleWeightOrder={handleWeightOrder} 
+                    handleTempFilter={handleTempFilter}
+                    handleFilterOrigin={handleFilterOrigin}
+                    temperaments={temperaments} />
                 </section>
                 <section className={style.cardsContainer} >
-                    <Paginado dogsXPage={dogsXPage} totalDogs={allDogs.length} paginado={paginado} currentPage={currentPage}/>
+                {!Object.keys(errors).length ? 
+                    
+                    (<><Paginado dogsXPage={dogsXPage} totalDogs={allDogs.length} paginado={paginado} currentPage={currentPage}/>
                     <Cards currentDogs={currentDogs}/>
                     <Paginado dogsXPage={dogsXPage} totalDogs={allDogs.length} paginado={paginado} currentPage={currentPage}/>
-                </section>
-            </div>
-        </div>
+                    </>): 
+                    (<h2>{errors.statusText}</h2>)}
+
+                    </section>
+            </div>        </div>
     )
 };

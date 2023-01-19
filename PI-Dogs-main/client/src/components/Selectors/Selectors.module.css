@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.sections{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(197, 147, 112);
+    padding: 20px;
+    margin: 30px;
+    border-radius: 30px;
+}
+.boldText{
+    margin: 0;
+    text-decoration: underline;
+}
+.simpleText{
+    margin-bottom: 2px;
+    font-size: small;
+}
+.selector{
+    width: 180px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+}

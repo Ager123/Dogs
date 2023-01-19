@@ -1,0 +1,60 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #bec4c2de;
+}
+.title{
+    padding-top: 10 px;
+    padding-bottom: 10px;
+}
+.details{
+    display: flex;
+    flex-direction: column;
+}
+.imageAndText{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+.image{
+    height: 350px;
+    width: 500px;
+    border-radius: 100px 0;
+    border: 3px solid;
+}
+.textData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #c1a592;
+    border-radius: 0 100px 0 100px;
+    text-align: left;
+}
+.parrafo{
+    width: 350px;
+    padding: 0 40px;
+}
+.button{
+    text-decoration: none;
+    color: #536b7d;
+    font-size: 18px;
+    border: 1px solid #536b7d;
+    background-color: #c2e1ef;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 1px;
+    margin: 15px;
+}
+.button:hover {
+    cursor: pointer !important;
+    background-color: #99b9d9;;
+}
+.noDogFound{
+    background-color: #f3e2d8;
+    border-radius: 25px 0;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+}

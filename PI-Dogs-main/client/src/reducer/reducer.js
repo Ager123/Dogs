@@ -6,15 +6,13 @@ import {GET_DOGS,
     GET_BY_ID,
     FILTER_TEMPERAMENT,
     ORDER_BY_WEIGHT,
-    SET_ERROR,
-    SET_NEW_ID} from "../actions/actions.js";
+    SET_ERROR} from "../actions/actions.js";
 
 
 const initialState={
     dogs: [],
     temperaments:[],
     detailedDog:{},
-    newId:"",
     error: {}
 };
 
@@ -92,13 +90,6 @@ const rootReducer = (state=initialState, action) =>{
             return{
                 ...state,
                 temperaments: action.payload
-            }
-        }
-        case SET_NEW_ID:{
-            console.log (action.payload)
-            return{
-                ...state,
-                newId: action.payload
             }
         }
         case SET_ERROR:{

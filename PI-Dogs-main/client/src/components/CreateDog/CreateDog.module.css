@@ -1,0 +1,122 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.formCard{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #e4dcd1;
+    width: fit-content;
+    border-radius: 100px;
+    margin-top: 50px;
+    padding-bottom: 25px;
+}
+.textInputs{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding: 0 100px;
+}
+.inputRow{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 5px;
+}
+.submitButton{
+    text-decoration: none;
+    color: #f1e0d6;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #c3916e;
+    background-color: #c3916e;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 1px;
+    margin: 0 10px;
+    margin-top: 20px;
+}
+.submitButton:hover {
+    cursor: pointer !important;
+    background-color: #b36833;
+}
+.button{
+    text-decoration: none;
+    color: #536b7d;
+    font-size: 15px;
+    border: 1px solid #536b7d;
+    background-color: #c2e1ef;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 1px;
+    margin: 0 10px;
+}
+.button:hover {
+    cursor: pointer !important;
+    background-color: #99b9d9;;
+}
+.input{
+    width: 250px;
+    padding: 13px;
+    border-radius: 10px;
+}
+.warning{
+    border-color: red;
+    width: 250px;
+    padding: 13px;
+    border-radius: 10px;
+}
+.hInput{
+    width: 100px;
+    padding: 13px;
+    border-radius: 10px;
+}
+.hWarning{
+    border-color: red;
+    width: 100px;
+    padding: 13px;
+    border-radius: 10px;
+}
+.tempSelect{
+    width: 180px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+.danger{
+    color: red;
+    font-size: small;
+}
+.labels{
+    font-size: 20px;
+}
+.tempMapping{
+    display: grid;
+    padding: 0 101px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.tempCard{
+    display: flex;
+    width: fit-content;
+    background-color: #b36833;
+    border: 3px;
+    border-color: #b36833;
+    border-radius: 10%; 
+}
+.xButton{
+    border-radius: 100%;
+    height: fit-content
+}
+.tempP{
+    margin: 0;
+}
+.tempButtonDiv{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}

@@ -3,7 +3,6 @@ const { Dog, Temperament } = require('../db.js');
 const { API_KEY } = process.env;
 
 const getApiInfo = async () => {
-    
     const api = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
         const apiInfo = await api.data.map((el) => {
             let nw=""
@@ -36,9 +35,7 @@ const getApiInfo = async () => {
         return apiInfo;  
 };
 
-
 const getDbInfo = async () => {
-    
         return await Dog.findAll({ 
             include: {
                 model: Temperament,  
@@ -48,7 +45,6 @@ const getDbInfo = async () => {
                 },
             },
         });
-    
 };
 
 const getAllDogs = async () => {
@@ -59,8 +55,24 @@ const getAllDogs = async () => {
 }
 
 const createDog = async (dogData) => {
-        const {name, height, weight, avgWeight,image, temperament, lifespan, created} = dogData
-        const newDog = await Dog.create({
+    const {name, height, weight, avgWeight,image, temperament, lifespan, created} = dogData
+    const newDog = await Dog.create({
+        name,
+        height,
+        weight,
+        avgWeight,
+        lifespan,
+        image,
+        created,
+    })
+    await temperament.forEach(async (temp) => {
+        const tempDb= await Temperament.findOrCreate({
+            where: {name:temp}
+        })
+        await newDog.addTemperament(tempDb[0])
+    });
+    const createdDog= await Dog.findAll({
+        where: {
             name,
             height,
             weight,
@@ -68,75 +80,45 @@ const createDog = async (dogData) => {
             lifespan,
             image,
             created,
-        })
-        await temperament.forEach(async (temp) => {
-            const tempDb= await Temperament.findOrCreate({
-                where: {name:temp}
-            })
-            await newDog.addTemperament(tempDb[0])
-        });
-        const createdDog= await Dog.findAll({
-            where: {
-                name,
-                height,
-                weight,
-                avgWeight,
-                lifespan,
-                image,
-                created,
-            }
-        })
-        return createdDog
-    }
+        }
+    })
+    return createdDog
+}
 
 const getDbTemperaments= async()=>{
     const dbTemps= await Temperament.findAll({
-            include: [{
-                model: Dog,
-                attributes: ['name'],
-                through: {
-                    attributes: []
-                }
-            }]
-        })
+        include: [{
+            model: Dog,
+            attributes: ['name'],
+            through: {
+                attributes: []
+            }
+        }]
+    })
     const sortedTemps=dbTemps.sort(function(a,b){
-                                    if(a.name.toLowerCase()>b.name.toLowerCase())return 1;
-                                    if(a.name.toLowerCase()<b.name.toLowerCase())return -1;
-                                    return 0
-                                    })
+        if(a.name.toLowerCase()>b.name.toLowerCase())return 1;
+        if(a.name.toLowerCase()<b.name.toLowerCase())return -1;
+        return 0
+    })
     return sortedTemps
 }
 
 const getApiTempsToDb=async()=>{
     const apiData = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
     const apiTemperament = apiData.data.map(e => {
-                 return{
-                    temperament: e.temperament
-                }
+        return{
+            temperament: e.temperament
+        }
     })
     let tempMap = apiTemperament.map(e => Object.values(e)).flat().join(', ').split(', ');
     let set = new Set(tempMap)
     let tempNoRepeat = [...set]
     let allTemperaments = tempNoRepeat.filter(e => e !== '').slice(1);
-    // let sortedTemps = allTemperaments.sort(function(a,b){
-    //                                                 if(a>b)return 1;
-    //                                                 if(a<b)return -1;
-    //                                                 return 0
-    //                                                 })
+
     await allTemperaments.map(e => Temperament.findOrCreate(
         {
             where: {name: e}
         }))
     return await getDbTemperaments();
-    // const dbT = await Temperament.findAll({
-    //      include: [{
-    //                 model: Dog,
-    //                 attributes: ['name'],
-    //                 through: {
-    //                     attributes: []
-    //                 }
-    //             }]
-    // // })
-    // return dbT;
 }
 module.exports = { getApiInfo, getDbInfo, getAllDogs, createDog,getDbTemperaments,getApiTempsToDb};
