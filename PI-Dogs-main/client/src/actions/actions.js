@@ -11,25 +11,6 @@ export const GET_BY_ID = "GET_BY_ID";
 export const SET_ERROR = "SET_ERROR";
 
 export function getDogs (){
-    // return async function (dispatch) {
-    //     try{
-    //         var allDogs = await axios.get("http://localhost:3001/dogs",{});
-    //     dispatch(
-    //         {
-    //             type: GET_DOGS,
-    //             payload: allDogs.data
-    //         }
-    //     )
-    //     }catch(error){
-    //         console.log(error.response.data)
-    //         dispatch(
-    //         {
-    //             type: SET_ERROR,
-    //             payload: error
-    //         }
-    //     )
-    //     }
-    // }
     return function(dispatch){
         return axios.get("http://localhost:3001/dogs")
         .then(({data})=>{
@@ -117,9 +98,6 @@ export function postDog(newDog){
     return async function (dispatch){
         try{
             const req=await axios.post("http://localhost:3001/dogs",newDog);
-            // console.log(req.data)
-            console.log(req.data)
-            
         }catch(error){
             console.log(error.response.data)
             dispatch(
@@ -158,6 +136,13 @@ export function filterByTemperament(option){
 export function orderByWeight(option){
     return{
         type: ORDER_BY_WEIGHT,
+        payload:option
+    }
+}
+
+export function lisfeSpanFilter(option){
+    return{
+        type: "LIFESPAN_FILTER",
         payload:option
     }
 }

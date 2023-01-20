@@ -41,6 +41,14 @@ const rootReducer = (state=initialState, action) =>{
                 dogs: filtered
             }                           
         }
+        case "LIFESPAN_FILTER":{
+            const alDogs=state.dogs
+            const filter= alDogs.filter(dog=>parseInt(dog.lifespan)<parseInt(action.payload))
+            return{
+                ...state,
+                dogs: filter
+            }
+        }
         case ORDER_BY_NAME:{
             let sortedArray= action.payload === "asc" ? state.dogs.sort(function(a,b){
                                                                             if(a.name.toUpperCase()>b.name.toUpperCase())return 1;
@@ -95,10 +103,12 @@ const rootReducer = (state=initialState, action) =>{
         case SET_ERROR:{
             const catchedError=action.payload
             return{
+                
                 ...state,
                 error: catchedError
             }
         }
+
         default: return {...state};
     }
 };

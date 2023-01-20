@@ -15,7 +15,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 router.get('/', (req, res) => {
-    res.status(200).send('index')
+    res.status(200).send('')
 });
 
 router.get('/dogs', async (req, res) => {
@@ -78,5 +78,18 @@ router.get("/temperaments", async (req,res)=>{
         res.status(404).send(error)
     }
 })
+
+router.delete('/dogs',async (req,res)=>{
+  let {id} = req.query
+  try {
+    await Dog.destroy({
+     where: {
+      id: id,
+        }
+    })
+    res.status(200).json('dog deleted');  
+  } catch (error) {
+    res.status(400).json(error)
+  }})
 
 module.exports = router;

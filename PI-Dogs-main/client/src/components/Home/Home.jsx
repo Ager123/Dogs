@@ -6,7 +6,8 @@ import {getDogs,
         orderByName,
         getTemperaments,
         filterByTemperament,
-        orderByWeight} from "../../actions/actions"
+        orderByWeight,
+        lisfeSpanFilter} from "../../actions/actions"
 import Cards from "../Cards/Cards";
 import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
@@ -32,7 +33,10 @@ export default function Home (){
     const [currentPage, setCurrentPage]=useState(1);
     // const [dogsXPage , setDogsXPage]=useState(8);
     const dogsXPage=8;
-    const [order, setOrder]=useState("");
+    const [order, setOrder]=useState({
+        name:"",
+        weight:""
+    });
 
     const lastDogIndex=currentPage*dogsXPage;
     const firstDogIndex=lastDogIndex-dogsXPage;
@@ -54,17 +58,26 @@ export default function Home (){
         dispatch(filterByTemperament(e.target.value))
         setCurrentPage(1)
     }
+
+    function handleLifespanFilter(e){
+        dispatch(lisfeSpanFilter(e.target.value))
+        setCurrentPage(1)
+    }
     
     function handleSortByName(e){
         dispatch(orderByName(e.target.value))
         setCurrentPage(1);
-        setOrder(e.target.value)
+        setOrder({
+            ...order,
+            name: e.target.value})
     }
     
     function handleWeightOrder(e){
         dispatch(orderByWeight(e.target.value))
         setCurrentPage(1);
-        setOrder(e.target.value)
+        setOrder({
+            ...order,
+            weight: e.target.value})
     }
     console.log(errors)
     return(        
@@ -80,7 +93,10 @@ export default function Home (){
                     handleWeightOrder={handleWeightOrder} 
                     handleTempFilter={handleTempFilter}
                     handleFilterOrigin={handleFilterOrigin}
-                    temperaments={temperaments} />
+                    temperaments={temperaments}
+                    order={order} 
+                    handleLifespanFilter={handleLifespanFilter}
+                    />
                 </section>
                 <section className={style.cardsContainer} >
                 {!Object.keys(errors).length ? 
@@ -90,8 +106,8 @@ export default function Home (){
                     <Paginado dogsXPage={dogsXPage} totalDogs={allDogs.length} paginado={paginado} currentPage={currentPage}/>
                     </>): 
                     (<h2>{errors.statusText}</h2>)}
-
-                    </section>
-            </div>        </div>
+                </section>
+            </div>
+        </div>
     )
 };
